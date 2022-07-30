@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS myapp_database.ideas;
