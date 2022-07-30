@@ -1,0 +1,23 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node-sass --include-path static/scss static/scss/styles.scss static/css/styles.css --output-style compressed",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bumanoto/myapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bumanoto/myapp/issues"
+  },
+  "homepage": "https://github.com/bumanoto/myapp#readme",
+  "devDependencies": {
+    "node-sass": "^7.0.1"
+  }
+}
