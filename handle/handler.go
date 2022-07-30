@@ -25,7 +25,10 @@ func Handle() {
 	e.Renderer = t
 
 	e.GET("/", func(c echo.Context) error {
-		data := map[string]interface{}{"users": domain.FindUsers()}
+		data := map[string]interface{}{
+			"users": domain.FindUsers(),
+			"ideas": domain.FindIdeas(),
+		}
 		return c.Render(http.StatusOK, "index.html", data)
 	})
 	e.Logger.Fatal(e.Start(":1323"))

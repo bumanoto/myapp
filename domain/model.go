@@ -12,11 +12,19 @@ type User struct {
 
 type Idea struct {
 	gorm.Model
-	Name string
+	Name   string
+	UserID uint
+	User   `gorm:"foreignKey:UserID"`
 }
 
 func FindUsers() []User {
 	var users []User
 	infla.Db.Find(&users)
 	return users
+}
+
+func FindIdeas() []Idea {
+	var ideas []Idea
+	infla.Db.Find(&ideas)
+	return ideas
 }
