@@ -23,6 +23,7 @@ func Handle() {
 
 	e := echo.New()
 	e.Renderer = t
+	e.Static("/static/css", "./static/css")
 
 	e.GET("/", func(c echo.Context) error {
 		data := map[string]interface{}{
