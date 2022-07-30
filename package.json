@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node-sass --include-path static/scss static/scss/styles.scss static/css/styles.css --output-style compressed",
+    "build": "node-sass --include-path static/scss static/scss/styles.scss static/css/styles.css --output-style compressed",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
