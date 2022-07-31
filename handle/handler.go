@@ -34,5 +34,21 @@ func Handle() {
 		}
 		return c.Render(http.StatusOK, "index.html", data)
 	})
+
+	e.GET("/sign_up", func(c echo.Context) error {
+		data := map[string]interface{}{}
+		return c.Render(http.StatusOK, "sign_up.html", data)
+	})
+
+	e.POST("/sign_up", func(c echo.Context) error {
+		name := c.FormValue("name")
+		email := c.FormValue("email")
+		password := c.FormValue("password")
+		passwordConfirm := c.FormValue("password_confirm")
+		domain.CreateUser(name, email, password, passwordConfirm)
+		data := map[string]interface{}{}
+		return c.Render(http.StatusOK, "sign_up.html", data)
+	})
+
 	e.Logger.Fatal(e.Start(":1323"))
 }

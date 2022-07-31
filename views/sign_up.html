@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Go</title>
+    <link rel="stylesheet" href="/static/dist/styles.css?{{ .now }}">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 id="site-heading">新規会員登録</h1>
+
+    <form action="/sign_up" method="post">
+        <div class="mb-3">
+            <label class="form-label">
+                名前
+                <input name="name" type="text" class="form-control">
+            </label>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">
+                メールアドレス
+                <input name="email" type="email" class="form-control">
+            </label>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">
+                パスワード
+                <input name="password" type="password" class="form-control">
+            </label>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">
+                パスワード(確認)
+                <input name="password_confirm" type="password" class="form-control">
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">登録する</button>
+    </form>
+</div>
+
+<script src="/static/dist/index.js?{{ .now }}"></script>
+
+</body>
+</html>
