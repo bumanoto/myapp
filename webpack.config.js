@@ -1,7 +1,25 @@
+const path = require("path");
+const webpack = require("webpack");
 module.exports = {
-    entry: './static/js/src/index.js',
+    mode: "production",
+    entry: path.resolve(__dirname, 'static/js/src/index.js'),
     output: {
-        path: `${__dirname}/static/js/dist`,
+        path: path.resolve(__dirname, 'static/js/dist'),
         filename: "index.js"
-    }
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            }
+        ]
+    },
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery'
+        })
+    ]
 }
