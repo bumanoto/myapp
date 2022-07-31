@@ -1,17 +1,23 @@
 const path = require("path");
 const webpack = require("webpack");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 module.exports = {
     mode: "production",
-    entry: path.resolve(__dirname, 'static/js/src/index.js'),
+    entry: path.resolve(__dirname, 'static/src/index.js'),
     output: {
-        path: path.resolve(__dirname, 'static/js/dist'),
+        path: path.resolve(__dirname, 'static/dist'),
         filename: "index.js"
     },
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                test: /\.(scss|sass|css)$/i,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader'
+                ]
             }
         ]
     },
@@ -20,6 +26,10 @@ module.exports = {
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery'
-        })
+        }),
+        new MiniCssExtractPlugin({
+            // 抽出する CSS のファイル名
+            filename: 'styles.css',
+        }),
     ]
 }

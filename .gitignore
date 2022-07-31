@@ -1,5 +1,4 @@
 docker
 .idea
 node_modules
-static/js/dist/index.js
-index.js.LICENSE.txt
+static/dist
