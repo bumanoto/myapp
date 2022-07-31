@@ -6,6 +6,7 @@ import (
 	"io"
 	"myapp/domain"
 	"net/http"
+	"time"
 )
 
 type Template struct {
@@ -29,6 +30,7 @@ func Handle() {
 		data := map[string]interface{}{
 			"users": domain.FindUsers(),
 			"ideas": domain.FindIdeas(),
+			"now":   time.Now().Unix(),
 		}
 		return c.Render(http.StatusOK, "index.html", data)
 	})

@@ -3,26 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Go</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/styles.css?{{ .now }}">
 </head>
 <body>
 
-{{ range .ideas }}
-{{ .Name }}<br/>
-{{ .UserID }}<br/>
-{{ end }}
+<div class="container mt-5">
+    <h1 id="site-heading">Hello, world!</h1>
 
-<div class="container">
-    <h1>Hello, world!</h1>
-
-    <div class="card text-white bg-primary">
+    {{ range .users }}
+    <div class="card text-white bg-primary my-3">
         <div class="card-body">
-            カードのレイアウトを表示
+            {{ .Name }}
         </div>
     </div>
+    {{ end }}
 </div>
 
-<script src="/static/js/dist/index.js"></script>
+<script src="/static/js/dist/index.js?{{ .now }}"></script>
 
 </body>
 </html>
