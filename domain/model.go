@@ -24,12 +24,17 @@ func FindUsers() []User {
 	return users
 }
 
+func FindUserByEmail(email string) []User {
+	var users []User
+	infla.Db.Where("email = ?", email).First(&users)
+	return users
+}
+
 func CreateUser(
 	name string,
 	email string,
-	password string,
-	passwordConfirm string) {
-	user := User{
+	password string) {
+	user := &User{
 		Name:     name,
 		Email:    email,
 		Password: password,

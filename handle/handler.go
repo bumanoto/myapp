@@ -1,6 +1,7 @@
 package handle
 
 import (
+	"errors"
 	"github.com/labstack/echo/v4"
 	"html/template"
 	"io"
@@ -45,8 +46,23 @@ func Handle() {
 		email := c.FormValue("email")
 		password := c.FormValue("password")
 		passwordConfirm := c.FormValue("password_confirm")
-		domain.CreateUser(name, email, password, passwordConfirm)
+
+		existEmailUsers := domain.FindUserByEmail(email)
+		if len(existEmailUsers) > 0 {
+			data := map[string]interface{}{
+				"errors": []error{errors.New("登録済みのメールアドレスです")},
+				"form": map[string]interface{}{
+					"name":            name,
+					"email":           email,
+					"password":        password,
+					"passwordConfirm": passwordConfirm,
+				},
+			}
+			return c.Render(http.StatusOK, "sign_up.html", data)
+		}
+
 		data := map[string]interface{}{}
+		domain.CreateUser(name, email, password)
 		return c.Render(http.StatusOK, "sign_up.html", data)
 	})
 
