@@ -63,7 +63,7 @@ func Handle() {
 
 		data := map[string]interface{}{}
 		domain.CreateUser(name, email, password)
-		return c.Render(http.StatusOK, "sign_up.html", data)
+		return c.Render(http.StatusOK, "sign_up_complete.html", data)
 	})
 
 	e.Logger.Fatal(e.Start(":1323"))
