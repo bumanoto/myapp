@@ -24,10 +24,24 @@ func FindUsers() []User {
 	return users
 }
 
-func FindUserByEmail(email string) []User {
+func FindUsersByName(name string) []User {
+	var users []User
+	infla.Db.Where("name = ?", name).First(&users)
+	return users
+}
+
+func FindUsersByEmail(email string) []User {
 	var users []User
 	infla.Db.Where("email = ?", email).First(&users)
 	return users
+}
+
+func FindUsersByNameOrEmail(nameOrEmail string) []User {
+	users := FindUsersByEmail(nameOrEmail)
+	if len(users) > 0 {
+		return users
+	}
+	return FindUsersByName(nameOrEmail)
 }
 
 func CreateUser(
