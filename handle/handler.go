@@ -3,6 +3,8 @@ package handle
 import (
 	"errors"
 	"fmt"
+	"github.com/gorilla/sessions"
+	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	"html/template"
 	"io"
@@ -28,12 +30,18 @@ func Handle() {
 	e.Renderer = t
 	e.Static("/static/", "./static/")
 
+	e.Use(session.Middleware(sessions.NewCookieStore([]byte("secret"))))
+
 	e.GET("/", func(c echo.Context) error {
+		sess, _ := session.Get("session", c)
+
 		data := map[string]interface{}{
-			"users": domain.FindUsers(),
-			"ideas": domain.FindIdeas(),
-			"now":   time.Now().Unix(),
+			"users":          domain.FindUsers(),
+			"ideas":          domain.FindIdeas(),
+			"now":            time.Now().Unix(),
+			"loginCompleted": sess.Values["loginCompleted"] == "completed",
 		}
+
 		return c.Render(http.StatusOK, "index.html", data)
 	})
 
@@ -91,6 +99,15 @@ func Handle() {
 	e.POST("/sign_in", func(c echo.Context) error {
 		nameOrEmail := c.FormValue("name_or_email")
 		password := c.FormValue("password")
+
+		sess, _ := session.Get("session", c)
+		sess.Options = &sessions.Options{
+			Path:     "/",
+			MaxAge:   86400 * 7,
+			HttpOnly: true,
+		}
+		sess.Values["loginCompleted"] = "completed"
+		sess.Save(c.Request(), c.Response())
 
 		users := domain.FindUsersByNameOrEmail(nameOrEmail)
 		if len(users) == 0 {
